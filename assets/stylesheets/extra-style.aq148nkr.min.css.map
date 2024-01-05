@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "extra-style.aq148nkr.min.css",
+	"sources": [
+		"extra_sass/style.css.scss"
+	],
+	"sourcesContent": [
+		".contributors {\n    display: flex;\n    align-items: center;\n\n    small {\n        margin-right: 0.5em;\n        margin-bottom: 0.4em;\n    }\n\n    nav {\n        display: flex;\n\n        .md-author {\n            margin: 0 0.4em 0.4em 0;\n        }\n    }\n}\n\n.md-status--incomplete::after {\n    background-color: var(--md-code-bg-color);\n    color: var(--md-default-fg-color);\n    border-radius: 0.2rem;\n    content: \"Incomplete\";\n    font-size: 0.5rem;\n    height: auto;\n    padding: 0.1rem 0.5em;\n    -webkit-mask-image: none;\n    width: auto;\n}\n\n.md-status--incomplete:hover::after {\n    background-color: var(--md-code-bg-color);\n}\n\nimg.centered {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,aAAa,AAAC,CACV,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CActB,AAhBD,AAII,aAJS,CAIT,KAAK,AAAC,CACF,YAAY,CAAE,KAAK,CACnB,aAAa,CAAE,KAAK,CACvB,AAPL,AASI,aATS,CAST,GAAG,AAAC,CACA,OAAO,CAAE,IAAI,CAKhB,AAfL,AAYQ,aAZK,CAST,GAAG,CAGC,UAAU,AAAC,CACP,MAAM,CAAE,eAAe,CAC1B,AAIT,AAAA,sBAAsB,EAAE,KAAK,AAAC,CAC1B,gBAAgB,CAAE,uBAAuB,CACzC,KAAK,CAAE,0BAA0B,CACjC,aAAa,CAAE,MAAM,CACrB,OAAO,CAAE,YAAY,CACrB,SAAS,CAAE,MAAM,CACjB,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,YAAY,CACrB,kBAAkB,CAAE,IAAI,CACxB,KAAK,CAAE,IAAI,CACd,AAED,AAAA,sBAAsB,CAAC,KAAK,EAAE,KAAK,AAAC,CAChC,gBAAgB,CAAE,uBAAuB,CAC5C,AAED,AAAA,GAAG,AAAA,SAAS,AAAC,CACT,OAAO,CAAE,KAAK,CACd,WAAW,CAAE,IAAI,CACjB,YAAY,CAAE,IAAI,CACrB"
+}
