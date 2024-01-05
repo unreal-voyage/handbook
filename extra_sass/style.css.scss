@@ -1,0 +1,39 @@
+.contributors {
+    display: flex;
+    align-items: center;
+
+    small {
+        margin-right: 0.5em;
+        margin-bottom: 0.4em;
+    }
+
+    nav {
+        display: flex;
+
+        .md-author {
+            margin: 0 0.4em 0.4em 0;
+        }
+    }
+}
+
+.md-status--incomplete::after {
+    background-color: var(--md-code-bg-color);
+    color: var(--md-default-fg-color);
+    border-radius: 0.2rem;
+    content: "Incomplete";
+    font-size: 0.5rem;
+    height: auto;
+    padding: 0.1rem 0.5em;
+    -webkit-mask-image: none;
+    width: auto;
+}
+
+.md-status--incomplete:hover::after {
+    background-color: var(--md-code-bg-color);
+}
+
+img.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

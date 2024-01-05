@@ -1,0 +1,94 @@
+site_name: Unreal Engine 5 Handbook
+site_url: https://unreal-voyage.github.io/handbook
+repo_url: https://github.com/unreal-voyage/handbook
+repo_name: unreal-voyage/handbook
+
+theme:
+  name: material
+  logo: assets/logo.png
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - navigation.indexes
+    - navigation.path
+    - navigation.sections
+    - navigation.top
+    - navigation.tabs
+    - navigation.tracking
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+  consent:
+    title: Cookies
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - git-committers:
+      repository: unreal-voyage/handbook
+      branch: publish
+  - literate-nav:
+      nav_file: nav.md
+  - extra-sass
+  - glightbox:
+      skip_classes:
+        - hero
+        - no-lightbox
+
+hooks:
+  - hooks/indexing.py
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - toc:
+      title: On This Page
+      permalink: true
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+watch:
+  - includes
+
+extra:
+  status:
+    - incomplete: Incomplete

@@ -1,0 +1,8 @@
+livereload
+mkdocs
+mkdocs-material
+mkdocs-glightbox
+mkdocs-literate-nav
+mkdocs-extra-sass-plugin
+mkdocs-git-committers-plugin-2
+mkdocs-git-revision-date-localized-plugin
