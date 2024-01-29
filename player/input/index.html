@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://unreal-voyage.github.io/handbook/player/input/" rel="canonical"/>
+<link href="../.." rel="prev"/>
+<link href="../../tutorials/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-9.5.6" name="generator"/>
+<title>Input - Unreal Engine 5 Handbook</title>
+<link href="../../assets/stylesheets/main.50c56a3b.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/extra-style.dnu4o4ap.min.css" rel="stylesheet"/> <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#player-input">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Unreal Engine 5 Handbook" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Unreal Engine 5 Handbook">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Unreal Engine 5 Handbook
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Input
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/unreal-voyage/handbook" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    unreal-voyage/handbook
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../..">
+          
+  
+    
+  
+  Manuals
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../tutorials/">
+        
+  
+    
+  
+  Tutorials
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Unreal Engine 5 Handbook" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Unreal Engine 5 Handbook">
+<img alt="logo" src="../../assets/logo.png"/>
+</a>
+    Unreal Engine 5 Handbook
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/unreal-voyage/handbook" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    unreal-voyage/handbook
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Manuals
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            Manuals
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
+<span class="md-ellipsis">
+    Player
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_2">
+<span class="md-nav__icon md-icon"></span>
+            Player
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Input
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Input
+  </span>
+</a>
+<nav aria-label="On This Page" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      On This Page
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#enhanced-input-plugin">
+<span class="md-ellipsis">
+      Enhanced Input Plugin
+    </span>
+</a>
+<nav aria-label="Enhanced Input Plugin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-actions">
+<span class="md-ellipsis">
+      Input Actions
+    </span>
+</a>
+<nav aria-label="Input Actions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifiers">
+<span class="md-ellipsis">
+      Modifiers
+    </span>
+</a>
+<nav aria-label="Modifiers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bundled">
+<span class="md-ellipsis">
+      Bundled
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#triggers">
+<span class="md-ellipsis">
+      Triggers
+    </span>
+</a>
+<nav aria-label="Triggers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bundled_1">
+<span class="md-ellipsis">
+      Bundled
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mapping-contexts">
+<span class="md-ellipsis">
+      Mapping Contexts
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-listeners">
+<span class="md-ellipsis">
+      Input Listeners
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#platform-setting">
+<span class="md-ellipsis">
+      Platform Setting
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+<span class="md-ellipsis">
+      Debugging
+    </span>
+</a>
+<nav aria-label="Debugging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#injecting-input">
+<span class="md-ellipsis">
+      Injecting Input
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tutorials/">
+<span class="md-ellipsis">
+    Tutorials
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="On This Page" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      On This Page
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#enhanced-input-plugin">
+<span class="md-ellipsis">
+      Enhanced Input Plugin
+    </span>
+</a>
+<nav aria-label="Enhanced Input Plugin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-actions">
+<span class="md-ellipsis">
+      Input Actions
+    </span>
+</a>
+<nav aria-label="Input Actions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifiers">
+<span class="md-ellipsis">
+      Modifiers
+    </span>
+</a>
+<nav aria-label="Modifiers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bundled">
+<span class="md-ellipsis">
+      Bundled
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#triggers">
+<span class="md-ellipsis">
+      Triggers
+    </span>
+</a>
+<nav aria-label="Triggers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bundled_1">
+<span class="md-ellipsis">
+      Bundled
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mapping-contexts">
+<span class="md-ellipsis">
+      Mapping Contexts
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-listeners">
+<span class="md-ellipsis">
+      Input Listeners
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#platform-setting">
+<span class="md-ellipsis">
+      Platform Setting
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+<span class="md-ellipsis">
+      Debugging
+    </span>
+</a>
+<nav aria-label="Debugging" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#injecting-input">
+<span class="md-ellipsis">
+      Injecting Input
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/unreal-voyage/handbook/edit/master/docs/player/input/_index.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<a class="md-content__button md-icon" href="https://github.com/unreal-voyage/handbook/raw/master/docs/player/input/_index.md" title="View source of this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"></path></svg>
+</a>
+<h1 id="player-input">Player Input<a class="headerlink" href="#player-input" title="Permanent link">¶</a></h1>
+<p>The <strong>Player Input</strong> class is responsible for processing hardware input from the player and passing the signals to the
+<strong>Player Controller</strong> to then trigger <strong>events</strong> bound to move the pawn, fire a weapon, or perform any other action.</p>
+<p>In the past, the <a href="https://docs.unrealengine.com/en-US/API/Runtime/Engine/GameFramework/UPlayerInput/" target="_blank"><code>UPlayerInput</code></a>
+class was used to handle player input, which could trigger special events for the <strong>Input Actions</strong> and <strong>Input Axis</strong>
+defined in the <strong>Project Settings</strong> (<em>Engine → Input</em>). This approach, however, is now deprecated in favor of the 
+<strong>Enhanced Input Plugin</strong> which implements <a href="https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UEnhancedPlayerInput/" target="_blank"><code>UEnhancedPlayerInput</code></a>.
+<strong>Enhanced Input</strong> offers a number of advantages over the legacy system, and implements features such as radial dead 
+zones, contextual input, and prioritization, as well as the ability to remap the controls at runtime with ease.</p>
+<p>Unreal Engine comes bundled with two more input plugins, which are also worth mentioning. The 
+<a href="https://docs.unrealengine.com/en-US/rawinput-plugin-in-unreal-engine/" target="_blank"><strong>Raw Input Plugin</strong></a>
+can be used to add support for specific devices that aren't properly handled by Microsoft's XInput API. Flight sticks 
+and steering wheels fall into this category. There is also the 
+<a href="https://docs.unrealengine.com/en-US/force-feedback-in-unreal-engine/" target="_blank"><strong>Force Feedback Plugin</strong></a>, 
+which would allow you to add <strong>rumble</strong> to gamepads and controllers.</p>
+<h2 id="enhanced-input-plugin">Enhanced Input Plugin<a class="headerlink" href="#enhanced-input-plugin" title="Permanent link">¶</a></h2>
+<p>The plugin is enabled by default in the recent versions of Unreal Engine. Its associated classes should also be set as 
+the default for <strong>Player Input</strong> and <strong>Input Component</strong> in the <strong>Project Settings</strong> (<em>Engine → Input</em>).</p>
+<p><img alt="Enhanced Input set as the default in Project Settings." class="no-lightbox" src="enhanced_input_project_settings.png"/></p>
+<p>Now, if you right-click in the <strong>Content Browser</strong>, you should see the following options under <strong>Input</strong>:</p>
+<figure markdown="">
+<img alt="Input Assets in the Content Browser." class="no-lightbox" src="content_browser_add_input.png"/>
+</figure>
+<p>Let us now take a look at the core elements of <strong>Enhanced Input</strong>.</p>
+<h3 id="input-actions">Input Actions<a class="headerlink" href="#input-actions" title="Permanent link">¶</a></h3>
+<p>In <strong>Enhanced Input</strong>, every action that can be triggered by the player, such as moving in the world, looking around, 
+firing a weapon, and jumping, should be represented via an <strong>Input Action</strong>, simple data assets with a handful of attributes.</p>
+<figure markdown="">
+<img alt="Input Action Details Panel." class="no-lightbox" src="input_action_details.png"/>
+</figure>
+<p>The most important attribute of an <strong>Input Action</strong> is its <strong>Value Type</strong>, which can be:</p>
+<ul>
+<li><strong>Digital</strong>: Represented as a <code class="is-variable boolean">Boolean</code> value, and commonly used for actions that have an 
+    On/Off state. E.g., pressing a button to pick up item could be represented as a Digital action.</li>
+<li><strong>Axis1D</strong>: Represented as a <code class="is-variable float">Float</code> value, and commonly used for actions that have a range 
+    of values. An example would be using the middle mouse button to zoom in and out.</li>
+<li><strong>Axis2D</strong>: Represented as a <code class="is-variable vector">Vector2D</code> value. Axis2D can be helpful when representing 
+    actions such as moving or looking around.</li>
+<li><strong>Axis3D</strong>: Represented as a <code class="is-variable vector">Vector</code> value. Axis3D is less common, but it can be used to 
+    hold more complex data, such as motion controller information.</li>
+</ul>
+<p>After deciding how you'd like to represent an action, you may want to use <strong>Modifiers</strong> and <strong>Triggers</strong> to your 
+<strong>Input Actions</strong>, to further control how it processes user input and how the action reacts.</p>
+<h4 id="modifiers">Modifiers<a class="headerlink" href="#modifiers" title="Permanent link">¶</a></h4>
+<p>Modifiers are preprocessors that alter the raw input values that the engine receives before sending them out. They 
+can be useful for applying sensitivity settings, smoothing input over multiple frames, or changing how input behaves 
+based on the state of the player.</p>
+<p>You can define your own <strong>Modifiers</strong> by inheriting from the <a href="https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputModifier/"><code>UInputModifier</code></a> 
+class, and overriding the <code>ModifyRaw()</code> RPC, in either Blueprints or C++. Below is an example of a <strong>Modifier</strong> used in 
+the <strong>Lyra Game Sample</strong>. </p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Applies an inversion of axis values based on a setting in the Lyra Shared game settings. */</span>
+
+<span class="n">UCLASS</span><span class="p">(</span><span class="n">NotBlueprintable</span><span class="p">,</span><span class="w"> </span><span class="n">MinimalAPI</span><span class="p">,</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">DisplayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Lyra Aim Inversion Setting"</span><span class="p">))</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ULyraInputModifierAimInversion</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UInputModifier</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+
+<span class="w">    </span><span class="c1">// Custom parameters will show up in the Input Action editor.</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditInstanceOnly</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="n">Settings</span><span class="p">,</span><span class="w"> </span><span class="n">Config</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bInvertVerticalAxis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FInputActionValue</span><span class="w"> </span><span class="n">ModifyRaw_Implementation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">UEnhancedPlayerInput</span><span class="o">*</span><span class="w"> </span><span class="n">PlayerInput</span><span class="p">,</span><span class="w"> </span><span class="n">FInputActionValue</span><span class="w"> </span><span class="n">CurrentValue</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ULyraLocalPlayer</span><span class="o">*</span><span class="w"> </span><span class="n">LocalPlayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LyraInputModifiersHelpers</span><span class="o">::</span><span class="n">GetLocalPlayer</span><span class="p">(</span><span class="n">PlayerInput</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">LocalPlayer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">CurrentValue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">ULyraSettingsShared</span><span class="o">*</span><span class="w"> </span><span class="n">Settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalPlayer</span><span class="o">-&gt;</span><span class="n">GetSharedSettings</span><span class="p">();</span>
+<span class="w">            </span><span class="n">FVector</span><span class="w"> </span><span class="n">NewValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CurrentValue</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="n">FVector</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bInvertVerticalAxis</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">NewValue</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">-1.0f</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Settings</span><span class="o">-&gt;</span><span class="n">GetInvertHorizontalAxis</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">NewValue</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">-1.0f</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">NewValue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h5 id="bundled">Bundled<a class="headerlink" href="#bundled" title="Permanent link">¶</a></h5>
+<p>The <strong>Enhanced Input Plugin</strong> comes bundled with a variety of <strong>Modifiers</strong> to perform common preprocessing tasks.
+The full list is shown below.</p>
+<table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deadzone</td>
+<td>Input values within the range <code class="is-variable float">LowerThreshold</code> - <code class="is-variable float">UpperThreshold</code> will be remapped from 0-1. Values outside this range will be clamped.</td>
+</tr>
+<tr>
+<td>FOV Scaling</td>
+<td>Apply FOV dependent scaling to input values, per axis.</td>
+</tr>
+<tr>
+<td>Negate</td>
+<td>Inverts input per axis.</td>
+</tr>
+<tr>
+<td>Response Curve</td>
+<td>Apply a user-defined response curve to input values, per axis.</td>
+</tr>
+<tr>
+<td>Scalar</td>
+<td>Scales input by specified factor.</td>
+</tr>
+<tr>
+<td>Scale By Delta Time</td>
+<td>Multiplies the input by <code class="is-variable float">DeltaTime</code>.</td>
+</tr>
+<tr>
+<td>Smooth</td>
+<td>Smooths the input over multiple frame.</td>
+</tr>
+<tr>
+<td>Swizzle Input Axis Values</td>
+<td>Useful to, for example, map 1D input signal for the W key to a Axis2D movement action.</td>
+</tr>
+<tr>
+<td>To World Space</td>
+<td>Auto-converts axes within the <strong>Input Action</strong> value into world space allowing the result to be directly plugged into functions that take world space values.<br/>E.g. for a 2D input axis up/down is mapped to world X (forward), whilst axis left/right is mapped to world Y (right).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">¶</a></h4>
+<p><strong>Triggers</strong> determine whether user input (after it has passed through the specified <strong>Modifiers</strong>), should activate the 
+corresponding <strong>Input Action</strong>. </p>
+<p>By default, any user activity on an input will trigger on every tick. However, <strong>Triggers</strong> allow you to analyze the 
+input, enabling you to check for minimum actuation values and validating patterns like short taps, prolonged holds, or
+the typical "press" or "release" events.</p>
+<p>To implement your own <strong>Triggers</strong>, you must inherit from the <a href="https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputTrigger/"><code>UInputTrigger</code></a> 
+class. You then need to override the <code>UpdateState()</code> RPC, which must return an <code class="is-variable enum">ETriggerState</code> value. 
+The choices are:</p>
+<ul>
+<li><code>None</code>: Conditions have not been met, and the <strong>Input Action</strong> should not be activated.</li>
+<li><code>Ongoing</code>: Conditions are <em>partially</em> met, and the <strong>Trigger</strong> is ongoing but is not yet <em>over the hill</em>.</li>
+<li><code>Triggered</code>: Conditions have been <em>fully</em> met, and the <strong>Trigger</strong> has entered its final state.</li>
+</ul>
+<p>Another overridable method to consider is <code>GetTriggerType()</code>, returning an <code class="is-variable enum">ETriggerType</code>. This
+flag can be <code>Explicit</code>, <code>Implicit</code>, or <code>Blocker</code>. The trigger type only comes into play when multiple <strong>Triggers</strong>
+are assigned to the same <strong>Input Action</strong>. In such cases, the <strong>Input Action</strong> is triggered if:</p>
+<ul>
+<li>At least one <code>Explicit</code>-type <strong>Trigger</strong> fires.</li>
+<li>Every single <code>Implicit</code>-type <strong>Trigger</strong> fires.</li>
+<li>No <code>Blocker</code>-type <strong>Trigger</strong> fires.</li>
+</ul>
+<p>The following example shows a <strong>Trigger</strong> that fires once input has remained actuated (e.g., the button has remained
+pressed) for <code class="is-variable float">HoldTimeThreshold</code> seconds.</p>
+<div class="highlight"><span class="filename">UInputTriggerHold.h</span><pre><span></span><code><span class="n">UCLASS</span><span class="p">(</span><span class="n">NotBlueprintable</span><span class="p">,</span><span class="w"> </span><span class="n">MinimalAPI</span><span class="p">,</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">DisplayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hold"</span><span class="p">))</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UInputTriggerHold</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UInputTriggerTimedBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bTriggered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ETriggerState</span><span class="w"> </span><span class="n">UpdateState_Implementation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">UEnhancedPlayerInput</span><span class="o">*</span><span class="w"> </span><span class="n">PlayerInput</span><span class="p">,</span><span class="w"> </span><span class="n">FInputActionValue</span><span class="w"> </span><span class="n">ModifiedValue</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ETriggerEventsSupported</span><span class="w"> </span><span class="n">GetSupportedTriggerEvents</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ETriggerEventsSupported</span><span class="o">::</span><span class="n">Ongoing</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// How long does the input have to be held to cause trigger?</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">Config</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Trigger Settings"</span><span class="p">,</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ClampMin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"0"</span><span class="p">))</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">HoldTimeThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Should this trigger fire only once, or fire every frame once the hold time threshold is met?</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">Config</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Trigger Settings"</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bIsOneShot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="nf">GetDebugState</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">HeldDuration</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">FString</span><span class="o">::</span><span class="n">Printf</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">"Hold:%.2f/%.2f"</span><span class="p">),</span><span class="w"> </span><span class="n">HeldDuration</span><span class="p">,</span><span class="w"> </span><span class="n">HoldTimeThreshold</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">FString</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="s">"</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">UInputTriggerHold.cpp</span><pre><span></span><code><span class="n">ETriggerState</span><span class="w"> </span><span class="nf">UInputTriggerHold::UpdateState_Implementation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">UEnhancedPlayerInput</span><span class="o">*</span><span class="w"> </span><span class="n">PlayerInput</span><span class="p">,</span><span class="w"> </span><span class="n">FInputActionValue</span><span class="w"> </span><span class="n">ModifiedValue</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Update HeldDuration and derive base state</span>
+<span class="w">    </span><span class="n">ETriggerState</span><span class="w"> </span><span class="n">State</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Super</span><span class="o">::</span><span class="n">UpdateState_Implementation</span><span class="p">(</span><span class="n">PlayerInput</span><span class="p">,</span><span class="w"> </span><span class="n">ModifiedValue</span><span class="p">,</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Trigger when HeldDuration reaches the threshold</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bIsFirstTrigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">bTriggered</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bTriggered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HeldDuration</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">HoldTimeThreshold</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bTriggered</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">bIsFirstTrigger</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">bIsOneShot</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">ETriggerState</span><span class="o">::</span><span class="n">Triggered</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ETriggerState</span><span class="o">::</span><span class="n">None</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">State</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<h5 id="bundled_1">Bundled<a class="headerlink" href="#bundled_1" title="Permanent link">¶</a></h5>
+<p>The following are the <strong>Triggers</strong> that come with the <strong>Enhanced Input Plugin</strong> out of the box.</p>
+<table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chorded Action</td>
+<td>Applies a <strong>Chord</strong> action that must be triggering for this trigger’s action to trigger.<br/>E.g., in AC2, you are able to attack a guard by pressing the <em>X</em>, but this would only take place if you were already holding down <em>right bumper</em> to allow <em>high profile</em> actions. In <strong>Enhanced Input</strong>, you'll need to add this trigger to the <em>attack</em> action and set <em>high profile</em> as its <strong>Chord Action</strong>.</td>
+</tr>
+<tr>
+<td>Combo</td>
+<td>All actions in the <strong>Combo Actions</strong> array must be triggered to trigger the action this trigger is on. Actions must also be completed in the order specified by the combo actions array. This will only trigger for one frame before resetting the combo trigger’s progress.<br/>Think of a <em>double jump</em> action that is triggered by pressing the <em>space bar</em> twice, or the combos in Street Fighter 6.</td>
+</tr>
+<tr>
+<td>Down</td>
+<td>Trigger fires when the input exceeds the Actuation Threshold.<br/>When there are no triggers bound, this is the <strong>default behavior</strong> (Threshold=0).</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>Trigger fires once input has remained actuated for Hold Time Threshold seconds.<br/>Trigger may optionally fire once, or repeatedly fire.</td>
+</tr>
+<tr>
+<td>Hold And Release</td>
+<td>Trigger fires when input is released after having been actuated for at least Hold Time Threshold seconds.</td>
+</tr>
+<tr>
+<td>Pressed</td>
+<td>Trigger fires once only when input exceeds the actuation threshold. Holding the input will not cause further triggers.</td>
+</tr>
+<tr>
+<td>Pulse</td>
+<td>Trigger that fires at an Interval, in seconds, while input is actuated.</td>
+</tr>
+<tr>
+<td>Released</td>
+<td>Trigger returns Ongoing whilst input exceeds the actuation threshold, and then fires <strong>once</strong> only when input drops back below the actuation threshold.</td>
+</tr>
+<tr>
+<td>Tap</td>
+<td>Input must be actuated and then released within Tap Release Time Threshold seconds to trigger.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mapping-contexts">Mapping Contexts<a class="headerlink" href="#mapping-contexts" title="Permanent link">¶</a></h3>
+<p><strong>Mapping Contexts</strong> bind hardware events to <strong>Input Actions</strong>. For example, you can associate <strong>WASD</strong> keys and the
+<strong>Gamepad Left Thumbstick</strong> movements with an <strong>Input Action</strong> for moving. You can assign additional <strong>Modifiers</strong> and
+<strong>Triggers</strong> to the <strong>Input Actions</strong>, as well. </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="input_mapping_context.png"><img alt="Mapping Contexts in the Project Settings." src="input_mapping_context.png"/></a></p>
+<p><strong>Mapping Contexts</strong> can be added and removed at runtime. This makes it easier to manage a large number of <strong>Actions</strong>. 
+You can change how certain inputs behave depending on the current state of the player.</p>
+<p>As an example, you can give a character who can swim, walk, and drive vehicles multiple Input Mapping Contexts; one for
+common actions that are available and always mapped to the same user inputs, and another one for each individual mode 
+of travel. Developers can then place the vehicle-related Input Actions into a separate Input Mapping Context, which is 
+added to the local player when entering a vehicle, and removed from the local player when exiting the vehicle.</p>
+<p>You can add a <strong>Mapping Context</strong> to your <strong>Pawn</strong> / <strong>Character</strong> to the player in either C++:</p>
+<div class="highlight"><span class="filename">Class Member Definition</span><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">"Input"</span><span class="p">)</span>
+<span class="n">TSoftObjectPtr</span><span class="o">&lt;</span><span class="n">UInputMappingContext</span><span class="o">&gt;</span><span class="w"> </span><span class="n">InputMapping</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">BeginPlay()</span><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ULocalPlayer</span><span class="o">*</span><span class="w"> </span><span class="n">LocalPlayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">ULocalPlayer</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Player</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UEnhancedInputLocalPlayerSubsystem</span><span class="o">*</span><span class="w"> </span><span class="n">InputSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalPlayer</span><span class="o">-&gt;</span><span class="n">GetSubsystem</span><span class="o">&lt;</span><span class="n">UEnhancedInputLocalPlayerSubsystem</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">InputMapping</span><span class="p">.</span><span class="n">IsNull</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">InputSystem</span><span class="o">-&gt;</span><span class="n">AddMappingContext</span><span class="p">(</span><span class="n">InputMapping</span><span class="p">.</span><span class="n">LoadSynchronous</span><span class="p">(),</span><span class="w"> </span><span class="n">Priority</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>or Blueprints:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="add_mapping_context_blueprint.png"><img alt="Adding a Mapping Context in Blueprints." src="add_mapping_context_blueprint.png"/></a></p>
+<p>You can use <code>RemoveMappingContext()</code> or <code>ClearAllMappings()</code> to remove contexts dynamically.</p>
+<h3 id="input-listeners">Input Listeners<a class="headerlink" href="#input-listeners" title="Permanent link">¶</a></h3>
+<p>After adding a <strong>Mapping Context</strong> to your <strong>Pawn</strong> / <strong>Character</strong>, you should be able to bind a callback function to
+each <strong>Input Action</strong> in C++:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// You should override SetupPlayerInputComponent() to set up input bindings.</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">AMyCharacter::SetupPlayerInputComponent</span><span class="p">(</span><span class="n">UInputComponent</span><span class="o">*</span><span class="w"> </span><span class="n">PlayerInputComponent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UEnhancedInputComponent</span><span class="o">*</span><span class="w"> </span><span class="n">Input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">UEnhancedInputComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">PlayerInputComponent</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// You can bind to any of the trigger events here by changing the "ETriggerEvent" enum value</span>
+<span class="w">    </span><span class="n">Input</span><span class="o">-&gt;</span><span class="n">BindAction</span><span class="p">(</span><span class="n">AimingInputAction</span><span class="p">,</span><span class="w"> </span><span class="n">ETriggerEvent</span><span class="o">::</span><span class="n">Triggered</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">AFooBar</span><span class="o">::</span><span class="n">SomeCallbackFunc</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">AMyCharacter::SomeCallbackFunc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FInputActionInstance</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Get the value of the Input Action for whatever type you want here...</span>
+<span class="w">    </span><span class="n">FVector</span><span class="w"> </span><span class="n">VectorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instance</span><span class="p">.</span><span class="n">GetValue</span><span class="p">().</span><span class="n">Get</span><span class="o">&lt;</span><span class="n">FVector</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="n">FVector2D</span><span class="w"> </span><span class="mi">2</span><span class="n">DAxisValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instance</span><span class="p">.</span><span class="n">GetValue</span><span class="p">().</span><span class="n">Get</span><span class="o">&lt;</span><span class="n">FVector2D</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FloatValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instance</span><span class="p">.</span><span class="n">GetValue</span><span class="p">().</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">BoolValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instance</span><span class="p">.</span><span class="n">GetValue</span><span class="p">().</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// Do your cool stuff here!</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<p>or in Blueprints, by simply looking up the name of the <strong>Input Action</strong>:</p>
+<figure markdown="">
+<img alt="Adding an Input Listener in Blueprints." class="no-lightbox" src="input_listener_blueprints.gif">
+</img></figure>
+<p>In either case, a triggered <strong>Input Action</strong> will have a <strong>Trigger State</strong>, which depends on the state and type of the
+assigned <strong>Triggers</strong>. The possible states are:</p>
+<ul>
+<li><strong>Triggered</strong>: The action was triggered. This means that it has completed the evaluation of all trigger requirements. For example, a "Press and Release" trigger is sent when the user releases the key.</li>
+<li><strong>Started</strong>: An event occurred that began trigger evaluation. For example, the first press of a "Double tap" trigger will call the "Started" state once.</li>
+<li><strong>Ongoing</strong>: The trigger is still being processed. For example, a "Press and hold" action is ongoing while the user is holding down the button before the specified duration is reached. Depending on the triggers, this event will fire every tick while the action is evaluated once it receives an input value.</li>
+<li><strong>Completed</strong>: The trigger evaluation process is completed.</li>
+<li><strong>Canceled</strong>: The triggering was canceled. For example, a user lets go of a button before a "Press and Hold" action can be triggered.</li>
+</ul>
+<p>In C++, these states are represented by the <code class="is-variable enum">ETriggerEvent</code> enum, and are accessible via
+<code>FInputActionInstance.GetTriggerEvent()</code> in the callback function.</p>
+<h3 id="platform-setting">Platform Setting<a class="headerlink" href="#platform-setting" title="Permanent link">¶</a></h3>
+<p>You may want different input settings for different platforms, such as rotating the face buttons on the Nintendo Switch 
+or altering the actions available on mobile devices. <strong>Enhanced Input</strong> provides a per-platform <strong>Mapping Context 
+Redirect</strong> that allows you to do this easily. Any time the mapping context is referenced on a specific platform, 
+it will be replaced by the value in the map when the mappings are rebuilt.</p>
+<p>In order to define your <strong>Mapping Context Redirects</strong>, you need to create a Blueprint, with <code>EnhancedInputPlatformData</code>
+as the parent class, for every platform. You can then specify which <strong>Mapping Context</strong> should be mapped to another 
+on the corresponding platform.</p>
+<figure>
+<img alt="Details Panel for an Enhanced Input Platform Data Blueprint." class="no-lightbox" src="enhanced_input_platform_data.png"/>
+</figure>
+<p>After creating the blueprints, you need to head to <em>Project Settings → Engine → Enhanced Input → Platform Settings</em>
+to then set the associated <strong>Redirect</strong> for each platform.</p>
+<figure>
+<img alt="Enhanced Input Platform Settings." class="no-lightbox" src="enhanced_input_platform_settings.png"/>
+</figure>
+<h3 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">¶</a></h3>
+<p><strong>Enhanced Input</strong> offers a few commands to help you debug your input mappings. </p>
+<p>By entering <code>showdebug enhancedinput</code> in the console, Unreal Engine will show you the state of every relevant 
+<strong>Input Action</strong> and their associated hardware inputs, allowing to debug your bindings:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="showdebug_enhancedinput.png"><img alt="Debugging Enhanced Input." src="showdebug_enhancedinput.png"/></a></p>
+<p>You also have the option of debugging your connected input devices by using <code>showdebug devices</code>:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="showdebug_devices.png"><img alt="Debugging connected input devices." src="showdebug_devices.png"/></a></p>
+<h4 id="injecting-input">Injecting Input<a class="headerlink" href="#injecting-input" title="Permanent link">¶</a></h4>
+<p>Enhanced Input also brings along the concept of <strong>Injecting Input</strong> to your player. This option allows you to simulate 
+hardware input. You must use the <code>Input.+key</code> command to start simulating input and <code>Input.-key</code> to stop it.</p>
+<p>Below is an example of setting the <code>Gamepad_Left2D</code> key:</p>
+<div class="highlight"><pre><span></span><code>Input.+key<span class="w"> </span>Gamepad_Left2D<span class="w"> </span><span class="nv">X</span><span class="o">=</span><span class="m">0</span>.7<span class="w"> </span><span class="nv">Y</span><span class="o">=</span><span class="m">0</span>.5
+Input.-key<span class="w"> </span>Gamepad_Left2D
+</code></pre></div>
+<p>You can find the names of hardware inputs in <a href="https://github.com/EpicGames/UnrealEngine/blob/release/Engine/Source/Runtime/InputCore/Private/InputCoreTypes.cpp" target="_blank"><code>InputCoreTypes.cpp</code></a>.</p>
+<p>You also have the option of injecting input to the player in C++:</p>
+<div class="highlight"><pre><span></span><code><span class="n">UEnhancedInputLocalPlayerSubsystem</span><span class="o">*</span><span class="w"> </span><span class="n">Subsystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ULocalPlayer</span><span class="o">::</span><span class="n">GetSubsystem</span><span class="o">&lt;</span><span class="n">UEnhancedInputLocalPlayerSubsystem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">PC</span><span class="o">-&gt;</span><span class="n">GetLocalPlayer</span><span class="p">());</span>
+<span class="n">UEnhancedPlayerInput</span><span class="o">*</span><span class="w"> </span><span class="n">PlayerInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Subsystem</span><span class="o">-&gt;</span><span class="n">GetPlayerInput</span><span class="p">();</span>
+<span class="n">FInputActionValue</span><span class="w"> </span><span class="nf">ActionValue</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// This can be a bool, float, FVector2D, or FVector</span>
+<span class="n">PlayerInput</span><span class="o">-&gt;</span><span class="n">InjectInputForAction</span><span class="p">(</span><span class="n">InputAction</span><span class="p">,</span><span class="w"> </span><span class="n">ActionValue</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<p>and Blueprints:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="injecting_input_blueprints.png"><img alt="Injecting Input in Blueprints." src="injecting_input_blueprints.png"/></a></p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="Last update">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-01-29T14:31:34+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-01-29</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Created">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-01-29T14:31:34+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-01-29</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Contributors">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"></path></svg>
+</span>
+<span>GitHub</span>
+<nav>
+<a class="md-author" href="https://github.com/unreal-voyage" title="@unreal-voyage">
+<img alt="unreal-voyage" src="https://avatars.githubusercontent.com/u/149201691?v=4&amp;size=72"/>
+</a>
+</nav>
+</span>
+</aside>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Index" class="md-footer__link md-footer__link--prev" href="../..">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Index
+              </div>
+</div>
+</a>
+<a aria-label="Next: Tutorials" class="md-footer__link md-footer__link--next" href="../../tutorials/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Tutorials
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.indexes", "navigation.path", "navigation.sections", "navigation.top", "navigation.tabs", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
