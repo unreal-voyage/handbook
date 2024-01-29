@@ -37,3 +37,37 @@ img.centered {
     margin-left: auto;
     margin-right: auto;
 }
+
+.is-variable {
+    padding-left: 0;
+    display: inline-block;
+
+    &::before {
+        content: " ";
+        background: #00aaf5;
+        mask-repeat: no-repeat;
+        margin-right: 0.35em;
+        padding: 0 0.65em;
+        mask-image: url(/handbook/assets/icons/variable.svg);
+    }
+
+    &.boolean { &::before { background: #950000; } }
+    &.byte { &::before { background: #006f65; } }
+    &.integer { &::before { background: #1fe3af; } }
+    &.integer64 { &::before { background: #ace3af; } }
+    &.float { &::before { background: #38d500; } }
+    &.name { &::before { background: #cd82ff; } }
+    &.string { &::before { background: #ff00d4; } }
+    &.text { &::before { background: #e77caa; } }
+    &.vector { &::before { background: #ffca23; } }
+    &.rotator { &::before { background: #a0b4ff; } }
+    &.transform { &::before { background: #ff7300; } }
+    &.enum { &::before { background: #006f65; } }
+}
+
+.blueprintue {
+    width: 100%;
+    min-height: 360px;
+    border: none;
+    margin: -8px; // blueprintUE adds an 8px margin for some reason!
+}
