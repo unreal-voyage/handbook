@@ -273,17 +273,25 @@ or in Blueprints, by simply looking up the name of the **Input Action**:
     <img src="input_listener_blueprints.gif" alt="Adding an Input Listener in Blueprints." class="no-lightbox" />
 </figure>
 
-In either case, a triggered **Input Action** will have a **Trigger State**, which depends on the state and type of the
-assigned **Triggers**. The possible states are:
+These **Input Listeners** will maintain an internal **Trigger Event** flag of type `ETriggerEvent`{.is-variable .enum}.
+This flag will be updated whenever a **Trigger** associated with the **Input Action** changes its state. Depending
+on the old (red) and the new (arrow) value of the **Trigger State**, the following events (blue) will be fired:
 
--   **Triggered**: The action was triggered. This means that it has completed the evaluation of all trigger requirements. For example, a "Press and Release" trigger is sent when the user releases the key.
--   **Started**: An event occurred that began trigger evaluation. For example, the first press of a "Double tap" trigger will call the "Started" state once.
--   **Ongoing**: The trigger is still being processed. For example, a "Press and hold" action is ongoing while the user is holding down the button before the specified duration is reached. Depending on the triggers, this event will fire every tick while the action is evaluated once it receives an input value.
--   **Completed**: The trigger evaluation process is completed.
--   **Canceled**: The triggering was canceled. For example, a user lets go of a button before a "Press and Hold" action can be triggered.
+``` mermaid
+flowchart TB
+    SN[None]:::someclass -->|Ongoing| Started
+    SN:::someclass -->|Triggered| Triggered
+    SO[Ongoing]:::someclass -->|None| Canceled
+    SO:::someclass -->|Ongoing| Ongoing
+    SO:::someclass -->|Triggered| Triggered
+    ST[Triggered]:::someclass -->|Triggered| Triggered
+    ST:::someclass -->|Ongoing| Ongoing
+    ST:::someclass -->|None| Completed
+    classDef someclass fill:#e06666, stroke:#f00, color: #fff;
+```
 
-In C++, these states are represented by the `ETriggerEvent`{.is-variable .enum} enum, and are accessible via
-`FInputActionInstance.GetTriggerEvent()` in the callback function.
+In C++, `FInputActionInstance.GetTriggerEvent()` in the callback function will return the current value of the 
+**Trigger Event** flag.
 
 ### Platform Setting
 
@@ -345,4 +353,6 @@ PlayerInput->InjectInputForAction(InputAction, ActionValue);
 
 and Blueprints:
 
-![Injecting Input in Blueprints.](injecting_input_blueprints.png)
+<figure>
+    <img src="injecting_input_blueprints.png" class="no-lightbox" alt="Injecting Input in Blueprints." />
+</figure>
