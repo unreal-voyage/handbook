@@ -1,26 +1,14 @@
 # Player Input
 
-The **Player Input** class is responsible for processing hardware input from the player and passing the signals to the
-**Player Controller** to then trigger **events** bound to move the pawn, fire a weapon, or perform any other action.
+The **Player Input** class is responsible for processing hardware input from the player and passing the signals to the **Player Controller** to then trigger **events** bound to move the pawn, fire a weapon, or perform any other action.
 
-In the past, the [`UPlayerInput`](https://docs.unrealengine.com/en-US/API/Runtime/Engine/GameFramework/UPlayerInput/){ target=_blank }
-class was used to handle player input, which could trigger special events for the **Input Actions** and **Input Axis**
-defined in the **Project Settings** (*Engine → Input*). This approach, however, is now deprecated in favor of the 
-**Enhanced Input Plugin** which implements [`UEnhancedPlayerInput`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UEnhancedPlayerInput/){ target=_blank }.
-**Enhanced Input** offers a number of advantages over the legacy system, and implements features such as radial dead 
-zones, contextual input, and prioritization, as well as the ability to remap the controls at runtime with ease.
+In the past, the [`UPlayerInput`](https://docs.unrealengine.com/en-US/API/Runtime/Engine/GameFramework/UPlayerInput/){ target=_blank } class was used to handle player input, which could trigger special events for the **Input Actions** and **Input Axis** defined in the **Project Settings** (*Engine → Input*). This approach, however, is now deprecated in favor of the **Enhanced Input Plugin** which implements [`UEnhancedPlayerInput`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UEnhancedPlayerInput/){ target=_blank }. **Enhanced Input** offers a number of advantages over the legacy system, and implements features such as radial dead zones, contextual input, and prioritization, as well as the ability to remap the controls at runtime with ease.
 
-Unreal Engine comes bundled with two more input plugins, which are also worth mentioning. The 
-[**Raw Input Plugin**](https://docs.unrealengine.com/en-US/rawinput-plugin-in-unreal-engine/){ target=_blank }
-can be used to add support for specific devices that aren't properly handled by Microsoft's XInput API. Flight sticks 
-and steering wheels fall into this category. There is also the 
-[**Force Feedback Plugin**](https://docs.unrealengine.com/en-US/force-feedback-in-unreal-engine/){ target=_blank }, 
-which would allow you to add **rumble** to gamepads and controllers.
+Unreal Engine comes bundled with two more input plugins, which are also worth mentioning. The [**Raw Input Plugin**](https://docs.unrealengine.com/en-US/rawinput-plugin-in-unreal-engine/){ target=_blank } can be used to add support for specific devices that aren't properly handled by Microsoft's XInput API. Flight sticks and steering wheels fall into this category. There is also the [**Force Feedback Plugin**](https://docs.unrealengine.com/en-US/force-feedback-in-unreal-engine/){ target=_blank }, which would allow you to add **rumble** to gamepads and controllers.
 
 ## Enhanced Input Plugin
 
-The plugin is enabled by default in the recent versions of Unreal Engine. Its associated classes should also be set as 
-the default for **Player Input** and **Input Component** in the **Project Settings** (_Engine → Input_).
+The plugin is enabled by default in the recent versions of Unreal Engine. Its associated classes should also be set as the default for **Player Input** and **Input Component** in the **Project Settings** (_Engine → Input_).
 
 ![Enhanced Input set as the default in Project Settings.](enhanced_input_project_settings.png){ .no-lightbox }
 
@@ -34,8 +22,7 @@ Let us now take a look at the core elements of **Enhanced Input**.
 
 ### Input Actions
 
-In **Enhanced Input**, every action that can be triggered by the player, such as moving in the world, looking around, 
-firing a weapon, and jumping, should be represented via an **Input Action**, simple data assets with a handful of attributes.
+In **Enhanced Input**, every action that can be triggered by the player, such as moving in the world, looking around, firing a weapon, and jumping, should be represented via an **Input Action**, simple data assets with a handful of attributes.
 
 <figure markdown>
     <img src="input_action_details.png" class="no-lightbox" alt="Input Action Details Panel.">
@@ -43,27 +30,18 @@ firing a weapon, and jumping, should be represented via an **Input Action**, sim
 
 The most important attribute of an **Input Action** is its **Value Type**, which can be:
 
--   **Digital**: Represented as a `Boolean`{.is-variable .boolean} value, and commonly used for actions that have an 
-    On/Off state. E.g., pressing a button to pick up item could be represented as a Digital action.
--   **Axis1D**: Represented as a `Float`{.is-variable .float} value, and commonly used for actions that have a range 
-    of values. An example would be using the middle mouse button to zoom in and out.
--   **Axis2D**: Represented as a `Vector2D`{.is-variable .vector} value. Axis2D can be helpful when representing 
-    actions such as moving or looking around.
--   **Axis3D**: Represented as a `Vector`{.is-variable .vector} value. Axis3D is less common, but it can be used to 
-    hold more complex data, such as motion controller information.
+-   **Digital**: Represented as a `Boolean`{.is-variable .boolean} value, and commonly used for actions that have an On/Off state. E.g., pressing a button to pick up item could be represented as a Digital action.
+-   **Axis1D**: Represented as a `Float`{.is-variable .float} value, and commonly used for actions that have a range of values. An example would be using the middle mouse button to zoom in and out.
+-   **Axis2D**: Represented as a `Vector2D`{.is-variable .vector} value. Axis2D can be helpful when representing actions such as moving or looking around.
+-   **Axis3D**: Represented as a `Vector`{.is-variable .vector} value. Axis3D is less common, but it can be used to hold more complex data, such as motion controller information.
 
-After deciding how you'd like to represent an action, you may want to use **Modifiers** and **Triggers** to your 
-**Input Actions**, to further control how it processes user input and how the action reacts.
+After deciding how you'd like to represent an action, you may want to use **Modifiers** and **Triggers** to your **Input Actions**, to further control how it processes user input and how the action reacts.
 
 #### Modifiers
 
-Modifiers are preprocessors that alter the raw input values that the engine receives before sending them out. They 
-can be useful for applying sensitivity settings, smoothing input over multiple frames, or changing how input behaves 
-based on the state of the player.
+Modifiers are preprocessors that alter the raw input values that the engine receives before sending them out. They can be useful for applying sensitivity settings, smoothing input over multiple frames, or changing how input behaves based on the state of the player.
 
-You can define your own **Modifiers** by inheriting from the [`UInputModifier`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputModifier/) 
-class, and overriding the `ModifyRaw()` RPC, in either Blueprints or C++. Below is an example of a **Modifier** used in 
-the **Lyra Game Sample**. 
+You can define your own **Modifiers** by inheriting from the [`UInputModifier`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputModifier/) class, and overriding the `ModifyRaw()` RPC, in either Blueprints or C++. Below is an example of a **Modifier** used in the **Lyra Game Sample**. 
 
 ```cpp
 /* Applies an inversion of axis values based on a setting in the Lyra Shared game settings. */
@@ -102,8 +80,7 @@ protected:
 
 ##### Bundled
 
-The **Enhanced Input Plugin** comes bundled with a variety of **Modifiers** to perform common preprocessing tasks.
-The full list is shown below.
+The **Enhanced Input Plugin** comes bundled with a variety of **Modifiers** to perform common preprocessing tasks. The full list is shown below.
 
 | Modifier                  | Description                                                                                                                                                                                                                                                                            |
 |---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -119,31 +96,23 @@ The full list is shown below.
 
 #### Triggers
 
-**Triggers** determine whether user input (after it has passed through the specified **Modifiers**), should activate the 
-corresponding **Input Action**. 
+**Triggers** determine whether user input (after it has passed through the specified **Modifiers**), should activate the corresponding **Input Action**. 
 
-By default, any user activity on an input will trigger on every tick. However, **Triggers** allow you to analyze the 
-input, enabling you to check for minimum actuation values and validating patterns like short taps, prolonged holds, or
-the typical "press" or "release" events.
+By default, any user activity on an input will trigger on every tick. However, **Triggers** allow you to analyze the input, enabling you to check for minimum actuation values and validating patterns like short taps, prolonged holds, or the typical "press" or "release" events.
 
-To implement your own **Triggers**, you must inherit from the [`UInputTrigger`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputTrigger/) 
-class. You then need to override the `UpdateState()` RPC, which must return an `ETriggerState`{.is-variable .enum} value. 
-The choices are:
+To implement your own **Triggers**, you must inherit from the [`UInputTrigger`](https://docs.unrealengine.com/en-US/API/Plugins/EnhancedInput/UInputTrigger/) class. You then need to override the `UpdateState()` RPC, which must return an `ETriggerState`{.is-variable .enum} value. The choices are:
 
 -   `None`: Conditions have not been met, and the **Input Action** should not be activated.
 -   `Ongoing`: Conditions are *partially* met, and the **Trigger** is ongoing but is not yet *over the hill*.
 -   `Triggered`: Conditions have been *fully* met, and the **Trigger** has entered its final state.
 
-Another overridable method to consider is `GetTriggerType()`, returning an `ETriggerType`{.is-variable .enum}. This
-flag can be `Explicit`, `Implicit`, or `Blocker`. The trigger type only comes into play when multiple **Triggers**
-are assigned to the same **Input Action**. In such cases, the **Input Action** is triggered if:
+Another overridable method to consider is `GetTriggerType()`, returning an `ETriggerType`{.is-variable .enum}. This flag can be `Explicit`, `Implicit`, or `Blocker`. The trigger type only comes into play when multiple **Triggers** are assigned to the same **Input Action**. In such cases, the **Input Action** is triggered if:
 
 -   At least one `Explicit`-type **Trigger** fires.
 -   Every single `Implicit`-type **Trigger** fires.
 -   No `Blocker`-type **Trigger** fires.
 
-The following example shows a **Trigger** that fires once input has remained actuated (e.g., the button has remained
-pressed) for `HoldTimeThreshold`{.is-variable .float} seconds.
+The following example shows a **Trigger** that fires once input has remained actuated (e.g., the button has remained pressed) for `HoldTimeThreshold`{.is-variable .float} seconds.
 
 ```cpp title="UInputTriggerHold.h"
 UCLASS(NotBlueprintable, MinimalAPI, meta = (DisplayName = "Hold"))
@@ -207,18 +176,15 @@ The following are the **Triggers** that come with the **Enhanced Input Plugin** 
 
 ### Mapping Contexts
 
-**Mapping Contexts** bind hardware events to **Input Actions**. For example, you can associate **WASD** keys and the
-**Gamepad Left Thumbstick** movements with an **Input Action** for moving. You can assign additional **Modifiers** and
-**Triggers** to the **Input Actions**, as well. 
+**Mapping Contexts** bind hardware events to **Input Actions**. For example, you can associate **WASD** keys and the **Gamepad Left Thumbstick** movements with an **Input Action** for moving. You can assign additional **Modifiers** and **Triggers** to the **Input Actions**, as well. 
 
 ![Mapping Contexts in the Project Settings.](input_mapping_context.png)
 
-**Mapping Contexts** can be added and removed at runtime. This makes it easier to manage a large number of **Actions**. 
-You can change how certain inputs behave depending on the current state of the player.
+**Mapping Contexts** can be added and removed at runtime. This makes it easier to manage a large number of **Actions**. You can change how certain inputs behave depending on the current state of the player.
 
-As an example, you can give a character who can swim, walk, and drive vehicles multiple Input Mapping Contexts; one for
+As an example, you can give a character who can swim, walk, and drive vehicles multiple **Input Mapping Contexts**; one for
 common actions that are available and always mapped to the same user inputs, and another one for each individual mode 
-of travel. Developers can then place the vehicle-related Input Actions into a separate Input Mapping Context, which is 
+of travel. Developers can then place the vehicle-related **Input Actions** into a separate **Input Mapping Context**, which is 
 added to the local player when entering a vehicle, and removed from the local player when exiting the vehicle.
 
 You can add a **Mapping Context** to your **Pawn** / **Character** to the player in either C++:
@@ -246,8 +212,7 @@ You can use `RemoveMappingContext()` or `ClearAllMappings()` to remove contexts 
 
 ### Input Listeners
 
-After adding a **Mapping Context** to your **Pawn** / **Character**, you should be able to bind a callback function to
-each **Input Action** in C++:
+After adding a **Mapping Context** to your **Pawn** / **Character**, you should be able to bind a callback function to each **Input Action** in C++:
 
 ```cpp
 // You should override SetupPlayerInputComponent() to set up input bindings.
@@ -273,9 +238,7 @@ or in Blueprints, by simply looking up the name of the **Input Action**:
     <img src="input_listener_blueprints.gif" alt="Adding an Input Listener in Blueprints." class="no-lightbox" />
 </figure>
 
-These **Input Listeners** will maintain an internal **Trigger Event** flag of type `ETriggerEvent`{.is-variable .enum}.
-This flag will be updated whenever a **Trigger** associated with the **Input Action** changes its state. Depending
-on the old (red) and the new (arrow) value of the **Trigger State**, the following events (blue) will be fired:
+These **Input Listeners** will maintain an internal **Trigger Event** flag of type `ETriggerEvent`{.is-variable .enum}. This flag will be updated whenever a **Trigger** associated with the **Input Action** changes its state. Depending on the old (red) and the new (arrow) value of the **Trigger State**, the following events (blue) will be fired:
 
 ``` mermaid
 flowchart TB
@@ -295,21 +258,15 @@ In C++, `FInputActionInstance.GetTriggerEvent()` in the callback function will r
 
 ### Platform Setting
 
-You may want different input settings for different platforms, such as rotating the face buttons on the Nintendo Switch 
-or altering the actions available on mobile devices. **Enhanced Input** provides a per-platform **Mapping Context 
-Redirect** that allows you to do this easily. Any time the mapping context is referenced on a specific platform, 
-it will be replaced by the value in the map when the mappings are rebuilt.
+You may want different input settings for different platforms, such as rotating the face buttons on the Nintendo Switch or altering the actions available on mobile devices. **Enhanced Input** provides a per-platform **Mapping Context Redirect** that allows you to do this easily. Any time the mapping context is referenced on a specific platform, it will be replaced by the value in the map when the mappings are rebuilt.
 
-In order to define your **Mapping Context Redirects**, you need to create a Blueprint, with `EnhancedInputPlatformData`
-as the parent class, for every platform. You can then specify which **Mapping Context** should be mapped to another 
-on the corresponding platform.
+In order to define your **Mapping Context Redirects**, you need to create a Blueprint, with `EnhancedInputPlatformData` as the parent class, for every platform. You can then specify which **Mapping Context** should be mapped to another on the corresponding platform.
 
 <figure>
     <img src="enhanced_input_platform_data.png" class="no-lightbox" alt="Details Panel for an Enhanced Input Platform Data Blueprint." />
 </figure>
 
-After creating the blueprints, you need to head to _Project Settings → Engine → Enhanced Input → Platform Settings_
-to then set the associated **Redirect** for each platform.
+After creating the blueprints, you need to head to _Project Settings → Engine → Enhanced Input → Platform Settings_ to then set the associated **Redirect** for each platform.
 
 <figure>
     <img src="enhanced_input_platform_settings.png" class="no-lightbox" alt="Enhanced Input Platform Settings." />
@@ -319,8 +276,7 @@ to then set the associated **Redirect** for each platform.
 
 **Enhanced Input** offers a few commands to help you debug your input mappings. 
 
-By entering `showdebug enhancedinput` in the console, Unreal Engine will show you the state of every relevant 
-**Input Action** and their associated hardware inputs, allowing to debug your bindings:
+By entering `showdebug enhancedinput` in the console, Unreal Engine will show you the state of every relevant **Input Action** and their associated hardware inputs, allowing to debug your bindings:
 
 ![Debugging Enhanced Input.](showdebug_enhancedinput.png)
 
@@ -330,8 +286,7 @@ You also have the option of debugging your connected input devices by using `sho
 
 #### Injecting Input
 
-Enhanced Input also brings along the concept of **Injecting Input** to your player. This option allows you to simulate 
-hardware input. You must use the `Input.+key` command to start simulating input and `Input.-key` to stop it.
+Enhanced Input also brings along the concept of **Injecting Input** to your player. This option allows you to simulate hardware input. You must use the `Input.+key` command to start simulating input and `Input.-key` to stop it.
 
 Below is an example of setting the `Gamepad_Left2D` key:
 
